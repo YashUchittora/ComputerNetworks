@@ -40,13 +40,16 @@ The project demonstrates important networking concepts such as TCP communication
 chat-app/
 │
 ├── server.py
-├── client.py
+└── client.py
+```
+
+---
 
 ## How to Run the Application
 
 ### 1. Start the Server
 
-Run the following command in the server directory:
+Run the following command:
 
 ```
 python server.py
