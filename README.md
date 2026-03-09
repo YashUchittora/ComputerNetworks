@@ -1,7 +1,6 @@
 # Simple Chat Application
 
 Computer Networks – Programming Assignment  
-Student: Yash Chittora
 
 ## Project Overview
 
@@ -40,17 +39,8 @@ The project demonstrates important networking concepts such as TCP communication
 ```
 chat-app/
 │
-├── server/
-│   └── server.py
-│
-├── client/
-│   └── client.py
-│
-├── README.md
-└── Report.pdf
-```
-
----
+├── server.py
+├── client.py
 
 ## How to Run the Application
 
@@ -125,7 +115,7 @@ The system uses a simple text-based protocol between the client and the server.
 Example messages:
 
 ```
-JOIN Alice
+JOIN YASH
 MSG Hello everyone
 LIST
 QUIT
