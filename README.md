@@ -73,7 +73,7 @@ Enter a username when prompted.
 Example:
 
 ```
-Enter your username: Alice
+Enter your username: Yash
 ```
 
 ---
