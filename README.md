@@ -1,165 +1,31 @@
 # Simple Chat Application
 
-Computer Networks – Programming Assignment  
+## Overview
+This project implements a simple multi-client chat application using TCP socket programming in Python. The system follows a client–server architecture where a server manages communication and multiple clients connect to it to exchange messages. Each client connects to the server, enters a username, and can send messages that are broadcast to other connected users. The server handles multiple clients simultaneously using threads.
 
-## Project Overview
-
-This project implements a simple multi-client chat application using TCP socket programming. The application follows a client–server architecture where a central server manages communication and multiple clients connect to it to exchange messages.
-
-The server listens for incoming connections and allows multiple clients to join the chat simultaneously. Each client connects to the server, selects a username, and can send messages that are broadcast to all other connected users.
-
-The project demonstrates important networking concepts such as TCP communication, client–server architecture, concurrency using threads, and basic protocol design.
-
----
-
-## Features
-
-- Multiple clients can connect to the server simultaneously
-- Real-time messaging between connected users
-- Join and leave notifications
-- List of online users
-- Message timestamps
-- Server logging for connections and messages
-- Graceful handling of client disconnections
-
----
-
-## Technologies Used
-
-- Python
-- TCP Sockets
-- Python Socket Library
-- Threading Module
-- Logging Module
-
----
-
-## Project Structure
-
-```
-chat-app/
-│
-├── server.py
-└── client.py
-```
-
----
-
-## How to Run the Application
+## How to Run
 
 ### 1. Start the Server
-
 Run the following command:
-
 ```
 python server.py
 ```
 
-You should see:
-
-```
-[LISTENING] Server is listening on 127.0.0.1:5555
-```
-
----
+The server will start listening on `127.0.0.1:5555`.
 
 ### 2. Start a Client
-
 Open another terminal and run:
-
 ```
 python client.py
 ```
 
 Enter a username when prompted.
 
-Example:
-
-```
-Enter your username: Yash
-```
-
----
-
 ### 3. Start Chatting
+Type messages and press Enter to send them to other connected users.
 
-Users can send messages that will be broadcast to other connected clients.
-
-Example:
-
+Useful commands:
 ```
-> Hello everyone
+/list  - show online users
+/quit  - exit the chat
 ```
-
----
-
-## Available Commands
-
-| Command | Description |
-|--------|-------------|
-| JOIN `<username>` | Registers the user with the server |
-| MSG `<message>` | Sends a chat message |
-| LIST | Displays currently connected users |
-| QUIT | Leaves the chat |
-
-Client shortcuts:
-
-```
-/list   -> show online users
-/quit   -> exit the chat
-```
-
----
-
-## Communication Protocol
-
-The system uses a simple text-based protocol between the client and the server.
-
-Example messages:
-
-```
-JOIN YASH
-MSG Hello everyone
-LIST
-QUIT
-```
-
-The server reads the command and performs the appropriate action such as broadcasting messages or returning the list of users.
-
----
-
-## Concurrency Model
-
-The server uses a **multi-threaded model** to handle multiple clients simultaneously. When a new client connects, a new thread is created to manage communication with that client.
-
-Each client thread listens for messages independently, allowing multiple users to chat at the same time without blocking the server.
-
----
-
-## Testing
-
-The application was tested under the following scenarios:
-
-- Multiple clients joining the chat
-- Simultaneous messaging from different users
-- Client leaving the chat
-- Unexpected client disconnection
-- Server stability with multiple connections
-
-The server successfully handled these cases and continued running without crashing.
-
----
-
-## Optional Features Implemented
-
-- Message timestamps
-- Online user list command
-- Server logging for events and messages
-
----
-
-## Conclusion
-
-This project helped in understanding the fundamentals of network programming and client–server communication. It provided hands-on experience with TCP sockets, threading, and real-time message exchange between multiple clients.
-
-The implementation demonstrates how distributed systems allow multiple users to communicate efficiently over a network.
