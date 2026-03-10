@@ -43,7 +43,7 @@ def start_client():
         receive_thread = threading.Thread(target=receive_messages, args=(client,), daemon=True)
         receive_thread.start()
 
-        print("You can start chatting! Type /quit or QUIT to exit.\n")
+        print("Start Chatting")
         while True:
             msg = input("> ")
 
@@ -61,16 +61,8 @@ def start_client():
 
             client.send(f"MSG {msg}".encode('utf-8'))
 
-    except ConnectionRefusedError:
-        print("Could not connect to the server. Is it running?")
-
-    except KeyboardInterrupt:
-        print("\nExiting...")
-        running = False
-        try:
-            client.send("QUIT".encode('utf-8'))
-        except:
-            pass  
+    except Exception:
+        print("Connection error.")
 
     finally:
         running = False
