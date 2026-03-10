@@ -1,73 +1,54 @@
 import socket
 import threading
-import sys
 
-#configuration
 HOST = '127.0.0.1'
 PORT = 5555
 
-running = True
 
-def receive_messages(client_socket):
-    global running
-    while running:
+def receive_messages(client):
+    while True:
         try:
-            message = client_socket.recv(1024).decode('utf-8')
+            message = client.recv(1024).decode('utf-8')
             if not message:
-                if running:
-                    print("\n[SERVER] Disconnected from server.")
+                print("Disconnected from server.")
                 break
-
-            sys.stdout.write('\r\033[K' + message + '\n> ')
-            sys.stdout.flush()
-
-        except Exception:
-            if running:
-                print("\n[ERROR] Connection lost.")
+            print(message)
+        except:
             break
 
+
 def start_client():
-    global running
     client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
     try:
         client.connect((HOST, PORT))
-        print(f"Connected to server at {HOST}:{PORT}")
+        print("Connected to server.")
 
-        username = input("Enter your username: ").strip()
-        while not username:
-            print("Username cannot be empty.")
-            username = input("Enter your username: ").strip()
+        username = input("Enter username: ")
         client.send(f"JOIN {username}".encode('utf-8'))
 
-        receive_thread = threading.Thread(target=receive_messages, args=(client,), daemon=True)
-        receive_thread.start()
+        thread = threading.Thread(target=receive_messages, args=(client,))
+        thread.start()
 
-        print("Start Chatting")
         while True:
-            msg = input("> ")
+            msg = input()
 
-            if not msg.strip():
-                continue  
-
-            if msg.strip().upper() == "QUIT" or msg.strip() == "/quit":
-                running = False
+            if msg.lower() == "/quit":
                 client.send("QUIT".encode('utf-8'))
                 break
 
-            if msg.strip() == "/list":
+            if msg.lower() == "/list":
                 client.send("LIST".encode('utf-8'))
-                continue
+            else:
+                client.send(f"MSG {msg}".encode('utf-8'))
 
-            client.send(f"MSG {msg}".encode('utf-8'))
-
-    except Exception:
-        print("Connection error.")
+    except:
+        print("Unable to connect to server.")
 
     finally:
-        running = False
         client.close()
-        print("Disconnected.")
+        print("Connection closed.")
+
 
 if __name__ == "__main__":
     start_client()
